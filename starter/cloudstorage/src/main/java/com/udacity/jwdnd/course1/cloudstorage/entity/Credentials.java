@@ -1,17 +1,15 @@
 package com.udacity.jwdnd.course1.cloudstorage.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Credentials {
 
-    private String credentialId;
+    private Long credentialId;
 
     private String url;
 
@@ -21,6 +19,6 @@ public class Credentials {
 
     private String password;
 
-    private String userId;
+    private Long userId;
 
 }

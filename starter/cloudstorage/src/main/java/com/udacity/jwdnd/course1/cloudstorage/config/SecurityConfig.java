@@ -4,6 +4,7 @@ import com.udacity.jwdnd.course1.cloudstorage.services.AuthService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -23,27 +24,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("resources/**", "/h2-console/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors()
-                .and()
-                .csrf().disable()
+        http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/signup", "/css/**", "img/**", "/js/**", "/h2-console/**").permitAll()
-                .anyRequest().authenticated();
-
-        http.formLogin()
-                .loginPage("/login")
-                .permitAll();
-
-        http.formLogin()
-                .defaultSuccessUrl("/home", true);
-
-        http.logout()
-                .logoutUrl(".logout")
-                .logoutSuccessUrl("/login")
+                .antMatchers("/signup", "/css/**", "/img/**", "/js/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin(f -> f.defaultSuccessUrl("/home", true)
+                        .loginPage("/login")
+                        .failureUrl("/login?error=true")
+                        .permitAll())
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout=true")
                 .invalidateHttpSession(true)
-                .permitAll();
-
-        http.headers().frameOptions().sameOrigin();
+                .permitAll()
+                .and()
+                .headers().frameOptions().sameOrigin();
     }
 }

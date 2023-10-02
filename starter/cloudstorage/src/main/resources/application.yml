@@ -20,3 +20,9 @@ spring :
     prefix: classpath:/templates/
     suffix: .html
     encoding: UTF-8
+
+#  #Configuration for multipartFile
+#  servlet:
+#    multipart:
+#      max-file-size: 5MB
+#      max-request-size: 5MB

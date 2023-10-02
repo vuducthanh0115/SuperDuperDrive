@@ -10,8 +10,8 @@ import java.util.Optional;
 
 @Mapper
 public interface UserMapper {
-    @Select("SELECT * FROM USERS WHERE username = #{username}")
-    Optional<User> getUserByUsername (String username);
+    @Select("SELECT * FROM USERS WHERE username = #{userName}")
+    Optional<User> getUserByUsername(String userName);
 
     @Insert("INSERT INTO USERS (username, salt, password, firstname, lastname) " +
             "VALUES(#{userName}, #{salt}, #{password}, #{firstName}, #{lastName})")

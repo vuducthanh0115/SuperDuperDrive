@@ -3,6 +3,7 @@ package com.udacity.jwdnd.course1.cloudstorage.services;
 import com.udacity.jwdnd.course1.cloudstorage.entity.User;
 import com.udacity.jwdnd.course1.cloudstorage.exception.AuthException;
 import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,16 +15,12 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class AuthService implements AuthenticationProvider {
 
     private final UserMapper userMapper;
 
     private final HashService hashService;
-
-    public AuthService(UserMapper userMapper, HashService hashService) {
-        this.userMapper = userMapper;
-        this.hashService = hashService;
-    }
 
     /**
      * @param authentication
